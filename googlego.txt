@@ -1,0 +1,65 @@
+package main
+	
+import (
+	"fmt"
+	"net/mail" 
+	"encoding/json"
+	)
+type login struct{
+		
+
+	First_Name string
+	Last_Name string
+	PhoneNumber string
+	Email string
+}  
+
+func validMailAddress(address string) (string, bool) {
+    addr, err := mail.ParseAddress(address)
+    if err != nil {
+        return "", false
+    }
+    return addr.Address, true
+}
+
+func main(){ 
+     var a string
+    var b string
+    var c string
+    var d string 
+    //var count int 
+    //count=0 
+    fmt.Println("Enter first name") 
+    fmt.Scan(&a)
+    
+    fmt.Println("enter last name")
+    fmt.Scan(&b)
+    
+    
+    fmt.Println("enter phone numebr")
+    fmt.Scan(&c)
+    
+     fmt.Println("enter email")
+    fmt.Scan(&d)
+    emailstr,ok := validMailAddress(d)
+    if(ok == true) {
+        fmt.Println("is a valid email address %s",emailstr)
+        user:= login{ a,b,c,d}  
+        	h, err := json.Marshal(user)
+        		
+	if err != nil {
+			
+		// if error is not nil
+		// print error
+		fmt.Println(err)
+	}
+		
+	// as human_enc is in a byte array
+	// format, it needs to be
+	// converted into a string
+	fmt.Println(string(h)) 
+    } else {
+        fmt.Printf("is a invalid email address %s",emailstr)
+    }
+    
+    }
